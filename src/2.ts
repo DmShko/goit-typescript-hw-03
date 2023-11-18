@@ -36,16 +36,10 @@ class Manager extends Employee {
   constructor(name: string, department: string, salary: number){
     super(name, department, salary);
   }
-
-  changeSalary(data: number) {
-    this.salary += data;
-    // console.log(this.salary);
-  }
   
 }
 
-const m = new Manager('Jack', 'New York', 0);
+const m = new Manager('Jack', 'New York', 10000);
 
-m.changeSalary(10000);
 
 export {};

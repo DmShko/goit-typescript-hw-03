@@ -8,13 +8,14 @@
 */
 
 interface ICharacter {
-  name: string,
-  level: number,
-  introduce(phrase: string): void
+  name: string;
+  level: number;
+  introduce(phrase: string): void;
+  levelUp(): void;
 };
 
 interface ISpellCaster {
-  castSpell(): void
+  castSpell(): void;
 };
 
 // реалізація класу Wizard

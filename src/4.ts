@@ -29,21 +29,18 @@ class Key {
         }
     }
   
-    openDoor(data: number) {
-        data = 0;
-        
-    }
+    public abstract openDoor(data: number): void;
   }
   
   class MyHouse extends House {
-    constructor(door: boolean, key: number) {
-        super(door, key)
+    constructor( key: number) {
+        super(false, key)
     }
   
-    openDoor(data: number) {
+    public openDoor(data: number) {
   
         data === this.key ?  this.door = true :  this.door = false;
-        this.door ? console.log('The door is open!'): console.log('The door is close!');
+        this.door ? console.log('The door is opened!'): console.log('The door is closed!');
         this.comIn(data);
     }
   }
@@ -52,10 +49,10 @@ class Key {
   const person = new Person(key);
   
   // first configuration, save tenant to access list
-  const house = new MyHouse(false, person.getKey().getSignature());
+  const house = new MyHouse(person.getKey().getSignature());
   
   // open the door and add tenant to 'tenants'
   house.openDoor(key.getSignature());
-  
+
   
   export {};
