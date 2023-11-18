@@ -1,5 +1,5 @@
 
-class Key {
+  class Key {
     constructor(private signature: number = Math.trunc(Math.random()*1000)){}
   
     getSignature(){
@@ -17,31 +17,34 @@ class Key {
   
   abstract class House {
   
-    protected tenants: number[] = [];
+    protected tenants: Person[] = [];
+    protected door: boolean = false;
   
-    constructor(protected door: boolean, protected key: number){}
+    constructor( protected key: Person){}
   
-    comIn(person: number){
-        this.key = person;
+    comIn(person: Person){
+        
         if(this.door) {
+            
+            this.key = person;
             this.tenants.push(this.key);
-            console.log(`The ${this.tenants} inside!`)
+            console.log(`The ${this.key.getKey().getSignature()} inside!`)
         }
     }
   
-    public abstract openDoor(data: number): void;
+    public abstract openDoor(data: Key): void;
   }
   
   class MyHouse extends House {
-    constructor( key: number) {
-        super(false, key)
+    constructor( key: Person) {
+        super(key)
     }
   
-    public openDoor(data: number) {
+    public openDoor(data: Key) {
   
-        data === this.key ?  this.door = true :  this.door = false;
+        data.getSignature() === this.key.getKey().getSignature() ?  this.door = true :  this.door = false;
         this.door ? console.log('The door is opened!'): console.log('The door is closed!');
-        this.comIn(data);
+  
     }
   }
   
@@ -49,10 +52,12 @@ class Key {
   const person = new Person(key);
   
   // first configuration, save tenant to access list
-  const house = new MyHouse(person.getKey().getSignature());
+  const house = new MyHouse(person);
   
-  // open the door and add tenant to 'tenants'
-  house.openDoor(key.getSignature());
-
+  // open the door 
+  house.openDoor(key);
+  
+  // add tenant to 'tenants'
+  house.comIn(person);
   
   export {};
